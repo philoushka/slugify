@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Create A Slug</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+        * {font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans,sans-serif;}
+        input[type=text] {width: 100%;font-weight: bold;font-size: 22px;overflow: hidden;}
+    </style>
+</head>
+<body>
+    <h1>Create A Slug</h1>
+    <p>Paste your string and have it turned into a slug:</p>
+    <p><input type="text" id="before" /></p>
+    <p><input type="text" id="slug" /></p>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#before').bind("change keyup input", function () {
+                var slug = makeSlug();
+                $('#slug').val(slug);
+            });
+            $('#slug').focus(function () {
+                this.select();
+            });
+        });
+        function makeSlug() {
+            return $('#before').val()
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, '-') //whitespace to dash
+            .replace(/[^a-zA-Z0-9\-]/g, '') //remove anything not a-z or 0-9;
+            .replace(/\-{2,}/g, '-') //multiple dashes collapse to one.
+            .replace(/\-+$/g, '');//remove trailing or leading dash
+        }
+    </script>
+</body>
+</html>
